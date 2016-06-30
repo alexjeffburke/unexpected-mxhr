@@ -1,6 +1,6 @@
 {
   "name": "unexpected-mxhr",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Unexpected plugin for mocking XHR",
   "author": "Alex J Burke <alex@alexjeffburke.com>",
   "repository": {
