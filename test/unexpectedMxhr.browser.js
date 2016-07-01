@@ -54,6 +54,25 @@ describe('unexpectedMxhr', function () {
         }, 'to yield response', 201);
     });
 
+    it('should allow checking the request body', function () {
+        return expect({
+            url: 'POST /',
+            body: {
+                foo: 'bar'
+            }
+        }, 'with xhr mocked out', {
+            request: {
+                method: 'POST',
+                body: {
+                    foo: 'bar'
+                }
+            },
+            response: {
+                statusCode: 201
+            }
+        }, 'to yield response', 201);
+    });
+
     it('should error on mismatching status code', function () {
         return expect(
             expect('GET /', 'with xhr mocked out', {
