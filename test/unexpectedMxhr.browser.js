@@ -118,6 +118,9 @@ describe('unexpectedMxhr', function () {
         }, 'with xhr mocked out', {
             request: {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: {
                     foo: 'bar'
                 }
@@ -136,6 +139,31 @@ describe('unexpectedMxhr', function () {
                 },
                 response: {
                     statusCode: 202
+                }
+            }, 'to yield response', 201),
+            'to be rejected'
+        );
+    });
+
+    it('should error with a mismatch when JSON was inferred', function () {
+        return expect(
+            expect({
+                url: 'POST /',
+                headers: {
+                    'Content-Type': 'application/something'
+                },
+                body: {
+                    foo: 'bar'
+                }
+            }, 'with xhr mocked out', {
+                request: {
+                    method: 'POST',
+                    body: {
+                        foo: 'bar'
+                    }
+                },
+                response: {
+                    statusCode: 201
                 }
             }, 'to yield response', 201),
             'to be rejected'
