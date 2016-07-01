@@ -27,6 +27,22 @@ describe('unexpectedMxhr', function () {
         });
     });
 
+    it('should mock out an inferred JSON body', function () {
+        return expect('http://www.google.com/', 'with xhr mocked out', {
+            request: 'GET /',
+            response: {
+                body: {
+                    foo: 'bar'
+                }
+            }
+        }, 'to yield response', {
+            statusCode: 200,
+            body: {
+                foo: 'bar'
+            }
+        });
+    });
+
     it('should allow checking the request', function () {
         return expect('GET /', 'with xhr mocked out', {
             request: {
