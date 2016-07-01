@@ -54,6 +54,25 @@ describe('unexpectedMxhr', function () {
         }, 'to yield response', 201);
     });
 
+    it('should allow checking the request headers', function () {
+        return expect({
+            url: 'HEAD /',
+            headers: {
+                'X-Is-Test': 'yes'
+            }
+        }, 'with xhr mocked out', {
+            request: {
+                method: 'HEAD',
+                headers: {
+                    'X-Is-Test': 'yes'
+                }
+            },
+            response: {
+                statusCode: 201
+            }
+        }, 'to yield response', 201);
+    });
+
     it('should allow checking the request body', function () {
         return expect({
             url: 'POST /',
