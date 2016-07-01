@@ -43,6 +43,42 @@ describe('unexpectedMxhr', function () {
         });
     });
 
+    it('should mock out an explicit JSON body', function () {
+        return expect('http://www.google.com/', 'with xhr mocked out', {
+            request: 'GET /',
+            response: {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: {
+                    bar: 'baz'
+                }
+            }
+        }, 'to yield response', {
+            statusCode: 200,
+            body: {
+                bar: 'baz'
+            }
+        });
+    });
+
+    it('should mock out JSON supplied as a string', function () {
+        return expect('http://www.google.com/', 'with xhr mocked out', {
+            request: 'GET /',
+            response: {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: '{"foo":\n123\n}'
+            }
+        }, 'to yield response', {
+            statusCode: 200,
+            body: {
+                foo: 123
+            }
+        });
+    });
+
     it('should allow checking the request', function () {
         return expect('GET /', 'with xhr mocked out', {
             request: {
