@@ -192,5 +192,27 @@ describe('unexpectedMxhr', function () {
                 body: '<!DOCTYPE html>\n<html></html>'
             });
         });
+
+        it('should mock out an inferred encrypted request', function () {
+            return expect('https://www.google.com/', 'with xhr mocked out', {
+                request: {
+                    url: 'https://www.google.com/',
+                    method: 'GET'
+                },
+                response: {
+                    statusCode: 200,
+                    headers: {
+                        'Content-Type': 'text/html; charset=UTF-8'
+                    },
+                    body: '<!DOCTYPE html>\n<html></html>'
+                }
+            }, 'to yield response', {
+                statusCode: 200,
+                headers: {
+                    'Content-Type': 'text/html; charset=UTF-8'
+                },
+                body: '<!DOCTYPE html>\n<html></html>'
+            });
+        });
     });
 });
