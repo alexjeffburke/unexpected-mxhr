@@ -40,7 +40,7 @@
     "mocha-phantomjs-istanbul": "0.0.2",
     "unexpected": "10.14.0",
     "unexpected-documentation-site-generator": "^4.0.0",
-    "unexpected-http-alexjeffburke": "5.5.0-patch1",
+    "unexpected-http-alexjeffburke": "5.5.0-patch2",
     "unexpected-markdown": "^1.4.0"
   },
   "dependencies": {

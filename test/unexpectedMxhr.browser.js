@@ -169,4 +169,28 @@ describe('unexpectedMxhr', function () {
             'to be rejected'
         );
     });
+
+    describe('https', function () {
+        it('should mock out a simple request', function () {
+            return expect('https://www.google.com/', 'with xhr mocked out', {
+                request: {
+                    url: 'GET /',
+                    encrypted: true
+                },
+                response: {
+                    statusCode: 200,
+                    headers: {
+                        'Content-Type': 'text/html; charset=UTF-8'
+                    },
+                    body: '<!DOCTYPE html>\n<html></html>'
+                }
+            }, 'to yield response', {
+                statusCode: 200,
+                headers: {
+                    'Content-Type': 'text/html; charset=UTF-8'
+                },
+                body: '<!DOCTYPE html>\n<html></html>'
+            });
+        });
+    });
 });
