@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "lint": "eslint .",
+    "pretest": "npm run prepublish",
     "test": "./node_modules/.bin/phantomjs ./node_modules/mocha-phantomjs-core/mocha-phantomjs-core.js test/index.html spec \"`node -pe 'JSON.stringify({useColors:true})'`\" && npm run lint",
     "precoverage": "browserify -p bundle-collapser/plugin -e lib/unexpectedMxhr -s unexpectedMxhr -t [ browserify-istanbul ] > ./test/unexpectedMxhr.instrumented.js",
     "coverage": "./node_modules/.bin/phantomjs ./node_modules/mocha-phantomjs-core/mocha-phantomjs-core.js test/coverage.html spec \"`node -pe 'JSON.stringify({useColors:true,hooks:\"mocha-phantomjs-istanbul\"})'`\" && istanbul report lcov text-summary && echo google-chrome coverage/lcov-report/index.html",
