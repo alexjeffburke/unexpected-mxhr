@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "body-parser": "1.15.0",
-    "browserify": "13.0.1",
+    "browserify": "13.1.0",
     "browserify-istanbul": "2.0.0",
     "bundle-collapser": "1.2.1",
     "coveralls": "2.11.2",
@@ -42,10 +42,11 @@
     "phantomjs-prebuilt": "2.1.7",
     "unexpected": "10.14.0",
     "unexpected-documentation-site-generator": "^4.0.0",
-    "unexpected-http-alexjeffburke": "5.5.0-patch2",
+    "unexpected-http": "5.6.0",
     "unexpected-markdown": "^1.4.0"
   },
   "dependencies": {
+    "blob-to-buffer": "1.2.6",
     "messy": "^6.6.1",
     "sinon": "1.17.4",
     "underscore": "1.8.3",
