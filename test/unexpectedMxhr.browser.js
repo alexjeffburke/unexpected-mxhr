@@ -173,7 +173,11 @@ describe('unexpectedMxhr', function () {
     it('should error with a rejection from the delegated assertion', function () {
         return expect(
             expect(function () {
-                throw new Error('NAH');
+                return expect.promise(function (resolve, reject) {
+                    setTimeout(function () {
+                        reject(new Error('NAH'));
+                    }, 0);
+                });
             }, 'with xhr mocked out', {
                 request: {
                     method: 'GET'
@@ -182,16 +186,18 @@ describe('unexpectedMxhr', function () {
                     statusCode: 202
                 }
             }, 'not to error'),
-            'when rejected',
-            'to have message',
-            function (message) {
-                expect(message, 'to equal',
-                    "expected function () { throw new Error('NAH'); }\n" +
-                    'with xhr mocked out { request: { method: 'GET' }, response: { statusCode: 202 } } not to error\n' +
-                    '  expected function not to error\n' +
-                    "    threw: Error('NAH')"
-                );
-            }
+            'when rejected to have message',
+            "expected\n" +
+            "function () {\n" +
+            "  return expect.promise(function (resolve, reject) {\n" +
+            "    setTimeout(function () {\n" +
+            "      reject(new Error('NAH'));\n" +
+            "    }, 0);\n" +
+            "  });\n" +
+            "}\n" +
+            "with xhr mocked out { request: { method: 'GET' }, response: { statusCode: 202 } } not to error\n" +
+            "  expected function not to error\n" +
+            "    returned promise rejected with: Error('NAH')"
         );
     });
 
