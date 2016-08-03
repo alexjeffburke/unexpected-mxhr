@@ -170,6 +170,31 @@ describe('unexpectedMxhr', function () {
         );
     });
 
+    it('should error with a rejection from the delegated assertion', function () {
+        return expect(
+            expect(function () {
+                throw new Error('NAH');
+            }, 'with xhr mocked out', {
+                request: {
+                    method: 'GET'
+                },
+                response: {
+                    statusCode: 202
+                }
+            }, 'not to error'),
+            'when rejected',
+            'to have message',
+            function (message) {
+                expect(message, 'to equal',
+                    "expected function () { throw new Error('NAH'); }\n" +
+                    'with xhr mocked out { request: { method: 'GET' }, response: { statusCode: 202 } } not to error\n' +
+                    '  expected function not to error\n' +
+                    "    threw: Error('NAH')"
+                );
+            }
+        );
+    });
+
     describe('https', function () {
         it('should mock out a simple request', function () {
             return expect('https://www.google.com/', 'with xhr mocked out', {
