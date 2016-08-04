@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="../../../static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../../../static/main.css" type="text/css" media="screen" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../../static/bug-icon-black.ico">
+    <title>any - with xhr mocked out</title>
+</head>
+<body class="sidebar-hidden has-sidebar"> 
+    <header>
+        <div class="logo-icon"></div>
+        <nav>
+            <ul>
+                <li class="menu-toggle-item">
+                    <button class="menu-toggle" onclick="toggleSidebar()"></button>
+                </li>
+                
+                <li class=""><a href="../../..">unexpected-mitm</a></li>
+                
+                
+                <li class="active"><a href="">Assertions</a></li>
+                
+                
+                
+            </ul>
+        </nav>
+        <div class="search" style="visibility: hidden">
+            <input id="search" placeholder="Search..." value="">
+            <div id="searchDropDown" class="dropDown">
+                <ul id="searchResults"></ul>
+            </div>
+        </div>
+    </header>
+
+<section id="assertions">
+    <nav id="assertion-menu" class="sidebar js-remember-scroll-position">
+    
+        <h3 class=""><a href="..">any</a></h3>
+        <ul>
+            
+            <li class="active">
+                <a href="">with xhr mocked out</a>
+            </li>
+            
+        </ul>
+    
+</nav>
+
+    <div class="main" tabindex="-1">
+        <div class="content">
+            <h1>with xhr mocked out</h1>
+            
+                <ul class="declarations">
+                
+                    <li>&lt;any&gt; with xhr mocked out &lt;object&gt; &lt;assertion&gt;</li>
+                
+                </ul>
+            
+            <p>Mock out uses of <code>XMLHttpRequest</code> within the browser.</p>
+<p>Let&#39;s say we&#39;ve got some XHR code. In the example below we&#39;ll use
+<a href="https://github.com/unexpectedjs/unexpected-http/">unexpected-http</a>
+to give us a nice syntax for issuing XHR requests, but in practice you&#39;d be
+wrapping your client side side e.g. <code>jQuery.ajax()</code> calls.</p>
+<div class="code lang-javascript">
+  <div>expect<span style="color: #000000">.</span><span style="color: #000000">use</span><span style="color: #000000">(</span><span style="color: #000000">require</span><span style="color: #000000">(</span><span style="color: #df5000">'unexpected-http'</span><span style="color: #000000">));</span></div>
+</div><h2 id="mock-responses">Mock Responses</h2>
+<p>Unexpected-mXHR allows declaratively specifying responses to return for XHR
+requests as follows:</p>
+<div class="code lang-javascript">
+  <div><span style="color: #000000">describe</span><span style="color: #000000">(</span><span style="color: #df5000">'the&nbsp;basics'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">function</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #a71d5d">return</span>&nbsp;<span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #df5000">'http://www.google.com/'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">'with&nbsp;xhr&nbsp;mocked&nbsp;out'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'GET&nbsp;/'</span><span style="color: #000000">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusCode<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">200</span><span style="color: #000000">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'Content-Type'</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'text/html;&nbsp;charset=UTF-8'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'&lt;!DOCTYPE&nbsp;html&gt;\n&lt;html&gt;&lt;/html&gt;'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">}</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span>&nbsp;<span style="color: #df5000">'to&nbsp;yield&nbsp;response'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusCode<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">200</span><span style="color: #000000">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'Content-Type'</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'text/html;&nbsp;charset=UTF-8'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'&lt;!DOCTYPE&nbsp;html&gt;\n&lt;html&gt;&lt;/html&gt;'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">});</span></div>
+  <div><span style="color: #000000">});</span></div>
+</div><p>As with <code>unexpected-mitm</code>, the request we expected to receive can be </p>
+
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    baseUrl = '../../..';
+</script>
+<script type="text/javascript" src="../../../static/toggleSidebar.js"></script>
+<script type="text/javascript" src="../../../static/rememberScrollPosition.js"></script>
+<script type="text/javascript" src="../../../static/focusMain.js"></script>
+<script type="text/javascript" src="../../../static/search.js"></script>
+</body>
+</html>
+
