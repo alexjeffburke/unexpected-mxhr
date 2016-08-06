@@ -1,7 +1,7 @@
 ---
 template: default.ejs
 theme: dark
-title: unexpected-mitm
+title: unexpected-mxhr
 repository: https://github.com/unexpectedjs/unexpected-mxhr
 ---
 
