@@ -2,7 +2,9 @@
 describe('unexpectedMxhr', function () {
 
     function issueGetAndConsume(url, cb) {
-        expect('GET ' + url, 'to yield response', 200).then(cb).caught(cb);
+        expect('GET ' + url, 'to yield response', 200).then(function () {
+            setTimeout(cb, 0);
+        }).caught(cb);
     }
 
     it('should mock out a status code', function () {
@@ -290,6 +292,35 @@ describe('unexpectedMxhr', function () {
                     }
                 }
             ], 'to call the callback without error');
+        });
+
+        it('should succeed with \'not to error\'', function () {
+            return expect(function () {
+                return expect.promise(function (run) {
+                    issueGetAndConsume('http://www.google.com/', run(function () {
+                        issueGetAndConsume('http://www.google.com/', run(function () {}));
+                    }));
+                });
+            }, 'with xhr mocked out', [
+                {
+                    request: 'GET http://www.google.com/',
+                    response: {
+                        headers: {
+                            'Content-Type': 'text/plain'
+                        },
+                        body: 'hello'
+                    }
+                },
+                {
+                    request: 'GET http://www.google.com/',
+                    response: {
+                        headers: {
+                            'Content-Type': 'text/plain'
+                        },
+                        body: 'world'
+                    }
+                }
+            ], 'not to error');
         });
     });
 
