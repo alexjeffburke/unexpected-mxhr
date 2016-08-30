@@ -109,6 +109,24 @@ describe('unexpectedMxhr', function () {
         }, 'to yield response', 201);
     });
 
+    it('should allow checking an inferred request host', function () {
+        return expect('GET http://www.google.com/', 'with xhr mocked out', {
+            request: 'GET http://www.google.com/',
+            response: 200
+        }, 'to yield response', 200);
+    });
+
+    it('should allow checking a specified request host', function () {
+        return expect('GET http://quux.example.com/foo', 'with xhr mocked out', {
+            request: {
+                method: 'GET',
+                host: 'quux.example.com',
+                path: '/foo'
+            },
+            response: 200
+        }, 'to yield response', 200);
+    });
+
     it('should allow checking the request body', function () {
         return expect({
             url: 'POST /',
