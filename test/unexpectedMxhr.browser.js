@@ -219,6 +219,30 @@ describe('unexpectedMxhr', function () {
         );
     });
 
+    it('should error preferring a "to satisfy" rejection over the delegated assertion', function () {
+        return expect(
+            expect({
+                url: 'PUT /'
+            }, 'with xhr mocked out', {
+                request: {
+                    method: 'PUT'
+                },
+                response: 202
+            }, 'to yield response', 201),
+            'when rejected to have message',
+            "expected { url: 'PUT /' }\n" +
+            "with xhr mocked out { request: { method: 'PUT' }, response: 202 } to yield response 201\n" +
+            '\n' +
+            'PUT / HTTP/1.1\n' +
+            'Content-Length: 0\n' +
+            '\n' +
+            'HTTP/1.1 202 Accepted // should be 201 Created\n' +
+            '                      //\n' +
+            '                      // -HTTP/1.1 202 Accepted\n' +
+            '                      // +HTTP/1.1 201 Created\n'
+        );
+    });
+
     describe('https', function () {
         it('should mock out a simple request', function () {
             return expect('https://www.google.com/', 'with xhr mocked out', {
