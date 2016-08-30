@@ -5,7 +5,7 @@
   "author": "Alex J Burke <alex@alexjeffburke.com>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/unexpectedjs/unexpected-mxhr.git"
+    "url": "git://github.com/alexjeffburke/unexpected-mxhr.git"
   },
   "main": "lib/unexpectedMxhr.js",
   "files": [
