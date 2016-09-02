@@ -127,7 +127,7 @@ describe('unexpectedMxhr', function () {
         }, 'to yield response', 200);
     });
 
-    it('should allow checking the request body', function () {
+    it('should allow checking a JSON request body', function () {
         return expect({
             url: 'POST /',
             body: {
@@ -146,6 +146,22 @@ describe('unexpectedMxhr', function () {
             response: {
                 statusCode: 201
             }
+        }, 'to yield response', 201);
+    });
+
+    it('should allow checking a textual request body', function () {
+        return expect({
+            url: 'POST /',
+            body: 'quux & xuuq'
+        }, 'with xhr mocked out', {
+            request: {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: 'quux & xuuq'
+            },
+            response: 201
         }, 'to yield response', 201);
     });
 
