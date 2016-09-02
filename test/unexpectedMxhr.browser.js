@@ -337,6 +337,35 @@ describe('unexpectedMxhr', function () {
             );
         });
 
+        it('should error if the request is unexpected and a textual body', function () {
+            return expect(
+                expect({
+                    url: 'POST http://www.google.com/foo',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    body: 'quux & xuuq'
+                }, 'with xhr mocked out', [], 'to yield response', 200),
+                'when rejected to have message',
+                "expected\n" +
+                "{\n" +
+                "  url: 'POST http://www.google.com/foo',\n" +
+                "  headers: { 'Content-Type': 'text/plain' },\n" +
+                "  body: 'quux & xuuq'\n" +
+                "}\n" +
+                'with xhr mocked out [] to yield response 200\n' +
+                '\n' +
+                '// should be removed:\n' +
+                '// POST /foo HTTP/1.1\n' +
+                '// Content-Type: text/plain\n' +
+                '// Host: www.google.com\n' +
+                '//\n' +
+                '// quux & xuuq\n' +
+                '//\n' +
+                '// <no response>'
+            );
+        });
+
         it('should error if a mocked request is not exercised', function () {
             return expect(
                 expect('http://www.google.com/foo', 'with xhr mocked out', [
@@ -363,6 +392,49 @@ describe('unexpectedMxhr', function () {
                 '\n' +
                 '// missing:\n' +
                 '// GET /foo\n' +
+                '//\n' +
+                '// HTTP/1.1 200 OK'
+            );
+        });
+
+        it('should error if a mocked request is not exercised', function () {
+            return expect(
+                expect('http://www.google.com/foo', 'with xhr mocked out', [
+                    {
+                        request: 'GET /foo',
+                        response: 200
+                    },
+                    {
+                        request: {
+                            url: 'POST /foo',
+                            headers: {
+                                'Content-Type': 'text/plain'
+                            },
+                            body: 'quux & xuuq'
+                        },
+                        response: 200
+                    }
+                ], 'to yield response', 200),
+                'when rejected to have message',
+                "expected 'http://www.google.com/foo' with xhr mocked out\n" +
+                '[\n' +
+                "  { request: 'GET /foo', response: 200 },\n" +
+                "  {\n" +
+                "    request: { url: 'POST /foo', headers: ..., body: 'quux & xuuq' },\n" +
+                "    response: 200\n" +
+                "  }\n" +
+                '] to yield response 200\n' +
+                '\n' +
+                'GET /foo HTTP/1.1\n' +
+                'Host: www.google.com\n' +
+                '\n' +
+                'HTTP/1.1 200 OK\n' +
+                '\n' +
+                '// missing:\n' +
+                '// POST /foo\n' +
+                '// Content-Type: text/plain\n' +
+                '//\n' +
+                '// quux & xuuq\n' +
                 '//\n' +
                 '// HTTP/1.1 200 OK'
             );
