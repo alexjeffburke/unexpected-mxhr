@@ -336,6 +336,37 @@ describe('unexpectedMxhr', function () {
                 '// <no response>'
             );
         });
+
+        it('should error if a mocked request is not exercised', function () {
+            return expect(
+                expect('http://www.google.com/foo', 'with xhr mocked out', [
+                    {
+                        request: 'GET /foo',
+                        response: 200
+                    },
+                    {
+                        request: 'GET /foo',
+                        response: 200
+                    }
+                ], 'to yield response', 200),
+                'when rejected to have message',
+                "expected 'http://www.google.com/foo' with xhr mocked out\n" +
+                '[\n' +
+                "  { request: 'GET /foo', response: 200 },\n" +
+                "  { request: 'GET /foo', response: 200 }\n" +
+                '] to yield response 200\n' +
+                '\n' +
+                'GET /foo HTTP/1.1\n' +
+                'Host: www.google.com\n' +
+                '\n' +
+                'HTTP/1.1 200 OK\n' +
+                '\n' +
+                '// missing:\n' +
+                '// GET /foo\n' +
+                '//\n' +
+                '// HTTP/1.1 200 OK'
+            );
+        });
     });
 
     describe('https', function () {
