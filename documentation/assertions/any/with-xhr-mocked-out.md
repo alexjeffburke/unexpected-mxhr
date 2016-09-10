@@ -36,4 +36,5 @@ describe('the basics', function () {
 });
 ```
 
-As with `unexpected-mitm`, the request we expected to receive can be 
+As with `unexpected-mitm`, the request we expected to receive can be checked
+against expectations and having succeeded the response we define is returned.
