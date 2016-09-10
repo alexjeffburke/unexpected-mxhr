@@ -55,7 +55,7 @@
             
                 <ul class="declarations">
                 
-                    <li>&lt;any&gt; with xhr mocked out &lt;object&gt; &lt;assertion&gt;</li>
+                    <li>&lt;any&gt; with xhr mocked out &lt;object|array&gt; &lt;assertion&gt;</li>
                 
                 </ul>
             
@@ -88,8 +88,41 @@ requests as follows:</p>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'&lt;!DOCTYPE&nbsp;html&gt;\n&lt;html&gt;&lt;/html&gt;'</span></div>
   <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">});</span></div>
   <div><span style="color: #000000">});</span></div>
-</div><p>As with <code>unexpected-mitm</code>, the request we expected to receive can be </p>
-
+</div><p>As with <code>unexpected-mitm</code>, the request we expected to receive can be checked
+against expectations and having succeeded the response we define is returned.</p>
+<h1 id="multiple-mocks">Multiple mocks</h1>
+<p>An array of mocks can be specified which will be used for each incoming call
+in turn. Both too many requests being issued as will any unexercised mocks
+(as in the example below).</p>
+<div class="code lang-javascript">
+  <div><span style="color: #000000">describe</span><span style="color: #000000">(</span><span style="color: #df5000">'multiple&nbsp;mocks'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #a71d5d">function</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">expect</span><span style="color: #000000">(</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #df5000">'http://www.google.com/foo'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">'with&nbsp;xhr&nbsp;mocked&nbsp;out'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'GET&nbsp;/foo'</span><span style="color: #000000">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusCode<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">200</span><span style="color: #000000">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'Content-Type'</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'text/html;&nbsp;charset=UTF-8'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'&lt;!DOCTYPE&nbsp;html&gt;\n&lt;html&gt;&lt;/html&gt;'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">}</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'GET&nbsp;/bar'</span><span style="color: #000000">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusCode<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">200</span><span style="color: #000000">,</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;headers<span style="color: #000000">:</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'Content-Type'</span><span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'text/html;&nbsp;charset=UTF-8'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">},</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body<span style="color: #000000">:</span>&nbsp;<span style="color: #df5000">'&lt;!DOCTYPE&nbsp;html&gt;\n&lt;html&gt;&lt;/html&gt;'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">}</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">}</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">],</span>&nbsp;<span style="color: #df5000">'to&nbsp;yield&nbsp;response'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #0086b3">200</span><span style="color: #000000">),</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #df5000">'to&nbsp;be&nbsp;rejected'</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">);</span></div>
+  <div><span style="color: #000000">});</span></div>
+</div>
         </div>
     </div>
 </section>
