@@ -1,5 +1,5 @@
 {
-  "name": "unexpected-mxhr",
+  "name": "@gustavnikolaj/unexpected-mxhr",
   "version": "0.4.0",
   "description": "Unexpected plugin for mocking XHR",
   "author": "Alex J Burke <alex@alexjeffburke.com>",
@@ -48,7 +48,7 @@
   "dependencies": {
     "blob-to-buffer": "1.2.6",
     "messy": "^6.6.1",
-    "sinon": "1.17.4",
+    "sinon": "^2.0.0",
     "underscore": "1.8.3",
     "unexpected-messy": "^6.0.0"
   }
