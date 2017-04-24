@@ -259,10 +259,7 @@ describe('unexpectedMxhr', function () {
             'PUT / HTTP/1.1\n' +
             'Content-Length: 0\n' +
             '\n' +
-            'HTTP/1.1 202 Accepted // should be 201 Created\n' +
-            '                      //\n' +
-            '                      // -HTTP/1.1 202 Accepted\n' +
-            '                      // +HTTP/1.1 201 Created\n'
+            'HTTP/1.1 202 Accepted // should be 201 Created\n'
         );
     });
 
