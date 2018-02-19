@@ -485,7 +485,7 @@ describe('unexpectedMxhr', function () {
     });
 
     (!window.XMLHttpRequest ? describe.skip : describe)('using XHR directly', function () {
-        it('should now error on missing body with a textual GET', function () {
+        it('should error on missing body with a textual GET', function () {
             return expect(function (cb) {
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', 'http://example.com/foo');
@@ -498,6 +498,25 @@ describe('unexpectedMxhr', function () {
                 request: 'GET http://example.com/foo',
                 response: 200
             }, 'to call the callback without error');
+        });
+
+        it('should error on payload being supplied to a GET', function () {
+            return expect(
+                expect(function (cb) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', 'http://example.com/foo');
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.onload = function () {
+                        cb();
+                    };
+                    xhr.send({ foo: true });
+                }, 'with xhr mocked out', {
+                    request: 'GET http://example.com/foo',
+                    response: 200
+                }, 'to call the callback without error'),
+                'to be rejected with',
+                new Error('unexpected-mxhr: GET requests do not support a payload to send().')
+            );
         });
     });
 });
