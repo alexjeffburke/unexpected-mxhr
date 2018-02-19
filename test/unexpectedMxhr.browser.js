@@ -483,4 +483,21 @@ describe('unexpectedMxhr', function () {
             });
         });
     });
+
+    (!window.XMLHttpRequest ? describe.skip : describe)('using XHR directly', function () {
+        it('should now error on missing body with a textual GET', function () {
+            return expect(function (cb) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'http://example.com/foo');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function () {
+                    cb();
+                };
+                xhr.send();
+            }, 'with xhr mocked out', {
+                request: 'GET http://example.com/foo',
+                response: 200
+            }, 'to call the callback without error');
+        });
+    });
 });
