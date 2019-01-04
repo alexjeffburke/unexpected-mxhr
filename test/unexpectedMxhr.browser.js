@@ -1,5 +1,5 @@
 describe('unexpectedMxhr', function () {
-    var expect = window.weknowhow.expect;
+    var expect = window.weknowhow.expect.clone();
     expect.installPlugin(window.unexpectedHttp);
     expect.installPlugin(window.unexpectedMxhr);
     expect.installPlugin(window.magicPenPrism);
