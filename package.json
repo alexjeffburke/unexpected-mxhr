@@ -46,7 +46,7 @@
     "unexpected-markdown": "^1.4.0"
   },
   "dependencies": {
-    "blob-to-buffer": "1.2.6",
+    "blob-to-buffer": "1.2.8",
     "messy": "^6.6.1",
     "sinon": "1.17.7",
     "underscore": "1.8.3",
