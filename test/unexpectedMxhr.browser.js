@@ -1,5 +1,8 @@
-/* global expect:true */
 describe('unexpectedMxhr', function () {
+    var expect = window.weknowhow.expect;
+    expect.installPlugin(window.unexpectedHttp);
+    expect.installPlugin(window.unexpectedMxhr);
+    expect.installPlugin(window.magicPenPrism);
 
     function issueGetAndConsume(url, cb) {
         expect('GET ' + url, 'to yield response', 200).then(function () {
