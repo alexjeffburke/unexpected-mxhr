@@ -3,6 +3,7 @@ Unexpected-mXHR
 
 [![NPM version](https://badge.fury.io/js/unexpected-mxhr.svg)](http://badge.fury.io/js/unexpected-mxhr)
 [![Build Status](https://travis-ci.org/alexjeffburke/unexpected-mxhr.svg?branch=master)](https://travis-ci.org/alexjeffburke/unexpected-mxhr)
+[![Coverage Status](https://img.shields.io/coveralls/alexjeffburke/unexpected-mxhr.svg?style=flat)](https://coveralls.io/r/alexjeffburke/unexpected-mxhr?branch=master)
 
 Plugin for Unexpected that allows mocking browser based XHR requests using the
 same declarative syntax as
