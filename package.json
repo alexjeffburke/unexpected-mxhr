@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run prepublish",
-    "test": "karma start --single-run && npm run lint",
+    "test": "karma start --single-run",
     "precoverage": "browserify -p bundle-collapser/plugin -e lib/unexpectedMxhr -s unexpectedMxhr -t [ browserify-istanbul ] > ./test/unexpectedMxhr.instrumented.js",
     "coverage": "karma start karma.coverage.js --single-run",
     "prepublish": "browserify -p bundle-collapser/plugin -e lib/unexpectedMxhr -s unexpectedMxhr > unexpectedMxhr.min.js",
