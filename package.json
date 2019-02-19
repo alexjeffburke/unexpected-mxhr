@@ -52,6 +52,6 @@
     "messy": "^6.6.1",
     "sinon": "1.17.7",
     "underscore": "1.8.3",
-    "unexpected-messy": "^7.0.0"
+    "unexpected-messy": "^8.2.1"
   }
 }
