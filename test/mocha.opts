@@ -1,4 +1,0 @@
--R spec
---check-leaks
---timeout 120000
---require ./bootstrap-unexpected-markdown
